@@ -7,12 +7,15 @@ import json
 import os
 
 # --- Global Patterns ---
-b_t = ['R/R', 'L/L', 'R/L', 'L/R', 'S/L', 'S/R', 'L/S', 'R/S']
-b_t_extra = ['R-R', 'L-L', 'R-L', 'L-R', 'S-L', 'S-R', 'L-S', 'R-S']
-year = ['Fr', 'So', 'Jr', 'Sr', 'Fr.', 'So.', 'Jr.', 'Sr.', 'FR', 'SO', 'JR', 'SR']
-year_extra =['R-Fr.', 'R-So.', 'R-Jr.', 'R-Sr.', 'Gr.', 'GR.', 'RS FR', 'RS JR', 'RS SO', 'RS SR']
+with open('patterns.json', 'r') as f:
+        patterns = json.load(f)
+b_t_pattern = patterns['b_t']
+b_t_extra_pattern = patterns['b_t_extra']
+year_pattern = patterns['year']
+year_extra1_pattern = patterns['year_extra_1']
+year_extra2_pattern = patterns['year_extra_2']
+position_pattern = patterns['positions']
 height_pattern = r"\d' ?\d{1,2}''" # height pattern to handle both formats: 6'3'' and 6' 3''
-position_list = ['INF', 'RHP', 'LHP', 'OF', 'C', 'P', '1B', 'UTL', 'UT', 'INF/RHP', 'INF/LHP', 'INF/OF', 'INF/C', 'INF/P', 'INF/1B', 'INF/UTL', 'INF/UT', 'RHP/INF', 'RHP/LHP', 'RHP/OF', 'RHP/C', 'RHP/P', 'RHP/1B', 'RHP/UTL', 'RHP/UT', 'LHP/INF', 'LHP/RHP', 'LHP/OF', 'LHP/C', 'LHP/P', 'LHP/1B', 'LHP/UTL', 'LHP/UT', 'OF/INF', 'OF/RHP', 'OF/LHP', 'OF/C', 'OF/P', 'OF/1B', 'OF/UTL', 'OF/UT', 'C/INF', 'C/RHP', 'C/LHP', 'C/OF', 'C/P', 'C/1B', 'C/UTL', 'C/UT', 'P/INF', 'P/RHP', 'P/LHP', 'P/OF', 'P/C', 'P/1B', 'P/UTL', 'P/UT', '1B/INF', '1B/RHP', '1B/LHP', '1B/OF', '1B/C', '1B/P', '1B/UTL', '1B/UT', 'UTL/INF', 'UTL/RHP', 'UTL/LHP', 'UTL/OF', 'UTL/C', 'UTL/P', 'UTL/1B', 'UTL/UT', 'UT/INF', 'UT/RHP', 'UT/LHP', 'UT/OF', 'UT/C', 'UT/P', 'UT/1B', 'UT/UTL']
 weight_pattern = r"\d{3}" # weight pattern for 3 digit weights
 # --- End Global Patterns ---
 
@@ -42,7 +45,10 @@ def write_to_neo4j(data, school):
                 conference=conference
             )
             session.run(
-                "MATCH (s:School {name: $school}), (c:Conference {name: $conference})\n                 MERGE (s)-[:MEMBER_OF]->(c)",
+                """
+                MATCH (s:School {name: $school}), (c:Conference {name: $conference})               
+                MERGE (s)-[:MEMBER_OF]->(c)
+                """,
                 school=school,
                 conference=conference
             )
@@ -60,20 +66,31 @@ def write_to_neo4j(data, school):
 
             if values[0].isnumeric(): # Add players, which always start with their number
                 for value in range(2, len(values)):
-                    if values[value] in b_t: # bat/throw values
+                    if (values[value] in b_t_pattern) or (values[value] in b_t_extra_pattern): # bat/throw values
                         bat_throw = values[value]
-                    elif values[value] in b_t_extra: # replace alternate bat/throw values with single format
-                        index = b_t_extra.index(values[value])
-                        bat_throw = b_t[index]
-                    elif values[value] in year or values[value] in year_extra: # year values --> Need to standardize format
+                    elif values[value] in b_t_extra_pattern: # standardize format
+                        index = b_t_extra_pattern.index(values[value])
+                        bat_throw = b_t_pattern[index]
+
+                    elif (values[value] in year_pattern): # Year
                         player_year = values[value]
+                    elif (values[value] in year_extra1_pattern): # standardize format
+                        index = year_extra1_pattern.index(values[value])
+                        player_year = year_pattern[index]
+                    elif (values[value] in year_extra2_pattern): # standardize format
+                        index = year_extra2_pattern.index(values[value])
+                        player_year = year_pattern[index]
+
                     elif re.match(height_pattern, values[value]): # height values
                         height = values[value]
+
                     elif re.match(weight_pattern, values[value]): # weight values
                         weight = values[value]
-                    elif values[value] in position_list: # position values --> Should probably standardize these too
+
+                    elif values[value] in position_pattern: # position values
                         position = values[value]
-                    elif '/' in values[value]:
+
+                    elif '/' in values[value]: # hometown + previous school values
                         hometown, high_school = map(str.strip, values[value].split('/', 1))
                     else:
                         if re.match(r"^[A-Za-z ]+, [A-Za-z]{2,15}\.?$", values[value].strip()):  # Matches [City, State] pattern
@@ -156,7 +173,7 @@ def write_to_neo4j(data, school):
     driver.close()
 
 def scrape():
-    with open('info.json', 'r') as f:
+    with open('school-info.json', 'r') as f:
         data = json.load(f)
     urls = [entry['url'] for entry in data]
     schools = [entry['name'] for entry in data]
