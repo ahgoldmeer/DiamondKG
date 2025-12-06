@@ -8,7 +8,8 @@ import os
 
 # --- Global Patterns ---
 with open('patterns.json', 'r') as f:
-        patterns = json.load(f)
+    patterns = json.load(f)
+
 b_t_pattern = patterns['b_t']
 b_t_extra_pattern = patterns['b_t_extra']
 year_pattern = patterns['year']
@@ -66,7 +67,7 @@ def write_to_neo4j(data, school):
 
             if values[0].isnumeric(): # Add players, which always start with their number
                 for value in range(2, len(values)):
-                    if (values[value] in b_t_pattern) or (values[value] in b_t_extra_pattern): # bat/throw values
+                    if (values[value] in b_t_pattern): # bat/throw values
                         bat_throw = values[value]
                     elif values[value] in b_t_extra_pattern: # standardize format
                         index = b_t_extra_pattern.index(values[value])
@@ -208,7 +209,6 @@ def get_details(school_name):
             state = cells[2].get_text(strip=True)
             field = cells[3].get_text(strip=True)
             return conference, team, state, field
-
 
 if __name__ == '__main__':
     scrape()
