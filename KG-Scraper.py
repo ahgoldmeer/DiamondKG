@@ -16,11 +16,12 @@ year_pattern = patterns['year']
 year_extra1_pattern = patterns['year_extra_1']
 year_extra2_pattern = patterns['year_extra_2']
 position_pattern = patterns['positions']
+majors = patterns['majors']
 height_pattern = r"\d' ?\d{1,2}''" # height pattern to handle both formats: 6'3'' and 6' 3''
 weight_pattern = r"\d{3}" # weight pattern for 3 digit weights
 # --- End Global Patterns ---
 
-def write_to_neo4j(data, school):
+def write_to_neo4j(data, school, year):
     uri = "neo4j://127.0.0.1:7687" 
     username = "neo4j" 
     password = "password"
@@ -64,14 +65,15 @@ def write_to_neo4j(data, school):
             hometown = None
             high_school = None
             weight = None
+            major = None
 
             if values[0].isnumeric(): # Add players, which always start with their number
                 for value in range(2, len(values)):
                     if (values[value] in b_t_pattern): # bat/throw values
-                        bat_throw = values[value]
+                        bat_throw = values[value].split('/')
                     elif values[value] in b_t_extra_pattern: # standardize format
                         index = b_t_extra_pattern.index(values[value])
-                        bat_throw = b_t_pattern[index]
+                        bat_throw = b_t_pattern[index].split('/')
 
                     elif (values[value] in year_pattern): # Year
                         player_year = values[value]
@@ -89,7 +91,12 @@ def write_to_neo4j(data, school):
                         weight = values[value]
 
                     elif values[value] in position_pattern: # position values
-                        position = values[value]
+                        if '/' in values[value]:
+                            position = values[value].split('/')  # Split into a list if '/' is present
+                        else:
+                            position = [values[value]]  # Wrap in a single-element list if no '/'
+                    elif values[value] in majors: # major values
+                        major = values[value]
 
                     elif '/' in values[value]: # hometown + previous school values
                         hometown, high_school = map(str.strip, values[value].split('/', 1))
@@ -105,72 +112,147 @@ def write_to_neo4j(data, school):
                 # else:
                 #     hometown = values[-1]
 
+                # session.run(
+                #     """
+                #     MERGE (p:Player {number: $num, name: $name, team: $team})
+                #     SET p.bat_throw = $bat_throw, p.year = $year, p.height = $height, p.weight = $weight, p.position = $position,
+                #         p.hometown = $hometown, p.high_school = $high_school
+                #     """,
+                #     team=team,
+                #     num=values[0] if len(values) > 0 else None,
+                #     name=values[1] if len(values) > 1 else None,
+                #     bat_throw=bat_throw,
+                #     year=player_year,
+                #     height=height,
+                #     weight=weight,
+                #     position=position,
+                #     hometown=hometown,
+                #     high_school=high_school
+                # )
                 session.run(
                     """
-                    MERGE (p:Player {number: $num, name: $name, team: $team})
-                    SET p.bat_throw = $bat_throw, p.year = $year, p.height = $height, p.weight = $weight, p.position = $position,
-                        p.hometown = $hometown, p.high_school = $high_school
+                    MERGE (p:Player {name: $name})
+                    ON CREATE SET p.hometown = $hometown, p.high_school = $high_school
                     """,
-                    team=team,
-                    num=values[0] if len(values) > 0 else None,
                     name=values[1] if len(values) > 1 else None,
-                    bat_throw=bat_throw,
-                    year=player_year,
-                    height=height,
-                    weight=weight,
-                    position=position,
                     hometown=hometown,
                     high_school=high_school
                 )
-                session.run( # Create relationship between player and team
+                # session.run( # Create relationship between player and team
+                #     """
+                #     MATCH (p:Player {number: $num, name: $name, team: $team})
+                #     MATCH (t:Team {name: $team})
+                #     MERGE (p)-[:PLAYS_FOR]->(t)
+                #     """,
+                #     team=team,
+                #     num=values[0] if len(values) > 0 else None,
+                #     name=values[1] if len(values) > 1 else None
+                # )
+                session.run(
                     """
-                    MATCH (p:Player {number: $num, name: $name, team: $team})
+                    MATCH (p:Player {name: $name})
                     MATCH (t:Team {name: $team})
-                    MERGE (p)-[:PLAYS_FOR]->(t)
-                    """,
+                    CREATE (p)-[:PLAYED_FOR {
+                        year: $year,
+                        player_year: $player_year,
+                        number: $num,
+                        position: $position,
+                        height: $height,
+                        weight: $weight,
+                        bat_throw: $bat_throw,
+                        major: $major
+                    }]->(t)
+                    """, 
+                    name=values[1] if len(values) > 1 else None,
                     team=team,
+                    year=year,
+                    player_year=player_year,
                     num=values[0] if len(values) > 0 else None,
-                    name=values[1] if len(values) > 1 else None
+                    position=position,
+                    height=height,
+                    weight=weight,
+                    bat_throw=bat_throw,
+                    major=major
                 )
-                session.run( # Create relationship between player and school
+                # session.run( # Create relationship between player and school
+                #     """
+                #     MATCH (p:Player {number: $num, name: $name, team: $team})
+                #     MATCH (s:School {name: $school})
+                #     MERGE (p)-[:ATTENDS]->(s)
+                #     """,
+                #     team=team,
+                #     num=values[0] if len(values) > 0 else None,
+                #     name=values[1] if len(values) > 1 else None,
+                #     school=school
+                # )
+                session.run(
                     """
-                    MATCH (p:Player {number: $num, name: $name, team: $team})
+                    MATCH (p:Player {name: $name})
                     MATCH (s:School {name: $school})
                     MERGE (p)-[:ATTENDS]->(s)
-                    """,
-                    team=team,
-                    num=values[0] if len(values) > 0 else None,
-                    name=values[1] if len(values) > 1 else None,
+                    """, 
+                    name=values[1] if len(values) > 1 else None, 
                     school=school
                 )
             elif values[0] != 'Skip Ad': # Add coaches, which never start with a number
-                session.run(
-                    "MERGE (:Coach {team: $team, name: $name, title: $title, email: $email, phone_number: $phone_number})",
-                    team=team,
-                    name=values[1] if len(values) > 0 else None,
-                    title=values[2] if len(values) > 1 else None,
-                    email=values[3] if len(values) > 2 else None,
-                    phone_number=values[4] if len(values) > 3 else None
-                )
-                session.run( # Create relationship between coach and school
-                    """
-                    MATCH (c:Coach {team: $team, name: $name})
-                    MATCH (s:School {name: $school})
-                    MERGE (c)-[:COACHES_AT]->(s)
-                    """,
-                    team=team,
-                    name=values[1] if len(values) > 0 else None,  # Correctly pass the name parameter
-                    school=school
-                )
+                name=values[1] if len(values) > 0 else None,
+                title=values[2] if len(values) > 1 else None,
+                email=values[3] if len(values) > 2 else None,
+                phone_number=values[4] if len(values) > 3 else None
+                # session.run(
+                #     "MERGE (:Coach {team: $team, name: $name, title: $title, email: $email, phone_number: $phone_number})",
+                #     team=team,
+                #     name=values[1] if len(values) > 0 else None,
+                #     title=values[2] if len(values) > 1 else None,
+                #     email=values[3] if len(values) > 2 else None,
+                #     phone_number=values[4] if len(values) > 3 else None
+                # )
                 session.run(
                     """
-                    MATCH (c:Coach {team: $team, name: $name})
+                    MERGE (c:Coach {name: $name})
+                    ON CREATE SET c.email = $email, c.phone_number = $phone
+                    """, 
+                    name=name, 
+                    email=email,
+                    phone=phone_number
+                )
+                # session.run( # Create relationship between coach and school
+                #     """
+                #     MATCH (c:Coach {team: $team, name: $name})
+                #     MATCH (s:School {name: $school})
+                #     MERGE (c)-[:COACHES_AT]->(s)
+                #     """,
+                #     team=team,
+                #     name=values[1] if len(values) > 0 else None,  # Correctly pass the name parameter
+                #     school=school
+                # )
+                session.run(
+                    """
+                    MATCH (c:Coach {name: $name})
                     MATCH (t:Team {name: $team})
                     MERGE (c)-[:COACHES_FOR]->(t)
-                    """,
-                    team=team,
-                    name=values[1] if len(values) > 0 else None
-                )
+                    """, 
+                    name=name, 
+                    team=team)
+                # session.run(
+                #     """
+                #     MATCH (c:Coach {team: $team, name: $name})
+                #     MATCH (t:Team {name: $team})
+                #     MERGE (c)-[:COACHES_FOR]->(t)
+                #     """,
+                #     team=team,
+                #     name=values[1] if len(values) > 0 else None
+                # )
+                session.run(
+                    """
+                    MATCH (c:Coach {name: $name})
+                    MATCH (s:School {name: $school})
+                    MERGE (c)-[:COACHES_AT]->(s)
+                    """, 
+                    name=name, 
+                    school=school
+                    )
+
     driver.close()
 
 def scrape():
@@ -183,8 +265,16 @@ def scrape():
         soup = BeautifulSoup(response.text, 'html.parser')
         data = soup.select('tr[class*="s-table-body__row"]')
         print("Scraping school:", school)
-        write_to_neo4j(data, school)
-        filepath = os.path.join("CSVs", f"{school}.csv")
+
+        # Determine the year based on the URL
+        year = 2025 if "2025" in u else 2026
+
+        write_to_neo4j(data, school, year)
+
+        # Check if the URL ends with '/2025' and adjust the filename accordingly
+        csv_suffix = "_2025" if u.endswith("/2025") else ""
+        filepath = os.path.join("CSVs", f"{school}{csv_suffix}.csv")
+
         with open(filepath, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow(['Column1', 'Column2', 'Column3', '...'])

@@ -1,46 +1,40 @@
 Column1,Column2,Column3,...
+1,Dean Gobeil,OF,5' 11'',175,L/R,Fr.,"Somerset, Mass.",Tabor Academy,
 2,Braden Sullivan,INF,5' 10'',185,R/R,Jr.,"Taunton, Mass.",Taunton,
-4,Sam Hill,INF,5' 9'',190,R/R,R-Sr.,"Northborough, Mass.",Alogonquin Regional,
+3,Ty Fox,INF/OF,6' 2'',195,L/R,R-Fr.,"Rochester Hills, Mich.",Brother Rice,Ohio State
+4,Kevin Schnupp,C,5' 8'',185,R/R,So.,"Port Jefferson Station, N.Y.",Comsewogue,
+5,Jack Niedringhaus,LHP,6' 0'',200,L/L,Sr.,"St. Louis, Mo.",MICDS,Xavier
+6,Ben Thomason,RHP,6' 3'',210,,R-So.,"Bethesda, MD.",St.John's College,
 7,Anthony Tirado,INF,6' 1'',170,L/R,R-So.,"Cheshire, Conn.",Cheshire Academy,
+Skip Ad
+8,Reece McCarthy,INF,5' 10'',185,L/R,So.,"Danville, Pa.",Danville,
 9,Ryan Kolben,C,6' 2'',210,R/R,Jr.,"Cumberland Foreside, Maine",Greely,
+10,Brandon Wingenroth,RHP,6' 1'',175,R/R,Gr.,"Manheim, Pa.",Lancaster Catholic,Penn State
 11,Jack Beverly,INF,6' 1'',205,R/R,Gr.,"Framingham, Mass.",Framingham,Lincoln Trail CC
 13,Dylan Terwilliger,RHP,6' 1'',195,R/R,Sr.,"Medford, N.J.",Shawnee,
+14,Sam Hill,INF,5' 9'',190,R/R,R-Sr.,"Northborough, Mass.",Alogonquin Regional,
+15,Marc Willi,INF,6' 4'',230,L/L,R-Jr.,"Weston, Mass.",Noble and Greenough,Michigan
 16,Gavin O'Brien,OF/INF,6' 4'',200,R/R,So.,"Salisbury, Conn.",Salisbury,
-Skip Ad
-17,Drew Sliwkowski,LHP,6' 2'',165,L/L,So.,"Kennebunkport, Maine",Kennebunk,
-21,Ben Thomason,RHP,6' 3'',210,,R-So.,"Bethesda, MD.",St.John's College,
+17,Vance Bonior,OF/RHP,6' 0'',195,R/R,So.,"Bethesda, Md.",Walter Johnson,
+18,Michael Goodman,RHP,6' 0'',195,R/R,R-Fr.,"New City, N.Y.",Clarkstown North,Delaware
+19,Sam Perry,RHP,6' 0'',185,R/R,Fr.,"Westport, Mass.",Diman Regional Vocational Tech,
+21,Kai Giro,RHP,6' 3'',215,R/R,Gr.,"Ridgefield, N.J.",St. Mary,Belmont Abbey
 22,Jack Levine,RHP,6' 5'',225,R/R,R-Jr.,"Yarmouth Port, Mass.",The Governor's Academy,Navy
+23,Gavin Sitarz,LHP,6' 0'',185,,Gr.,"St. Charles, Ill.",St. Charles East,Michigan State
 24,Matt Travisano,INF,5' 10'',180,R/R,R-Jr.,"Carlisle, Mass.",Noble and Greenough School,Pittsburgh
+25,Tommy Hennessey,INF,6' 0'',190,R/R,Fr.,"Charlton, Mass.",Shepherd Hill Regional,
 27,Jared Muñoz,OF,5' 11'',225,R/R,R-So.,"Attleboro, Mass.",Bishop Hendricken,
-29,Austin Campbell,LHP,6' 0'',185,L/L,So.,"Franklin, Mass.",Franklin,
-31,Marc Willi,INF,6' 4'',230,L/L,R-Jr.,"Weston, Mass.",Noble and Greenough,Michigan
-32,Reece McCarthy,INF,5' 10'',185,L/R,So.,"Danville, Pa.",Danville,
+28,Will Briggs,C,5' 11'',195,R/R,R-So.,"Shakopee, Minn.",Academy of Holy Angels,Purdue
+29,Randen May,INF/OF,5' 7'',175,R/R,Fr.,"West Bridgewater, Mass.",Bishop Feehan,
+30,Drew Sliwkowski,LHP,6' 2'',165,L/L,So.,"Kennebunkport, Maine",Kennebunk,
+31,Jackson Richard,OF,5' 11'',195,L/R,Fr.,"Pembroke, Mass.",Boston College HS,
 33,Bobby McDonough,RHP,6' 3'',220,R/R,R-Jr.,"Arlington, Va.",Bishop O'Connell,William & Mary
+35,Brayden Mercier,LHP,5' 10'',185,L/L,Fr.,"Oxford, Mass.",Saint John's HS,
 36,Adam Merritt,RHP,5' 9'',195,R/R,So.,"West Hartford, Conn.",Kingswood Oxford,
-37,Kevin Schnupp,C,5' 8'',185,R/R,So.,"Port Jefferson Station, N.Y.",Comsewogue,
 40,Callen Powers,RHP,6' 5'',210,R/R,Jr.,"Haddam Neck, Conn.",Haddam-Killingworth,
-41,Justin Masteralexis,LHP,6' 1'',215,L/L,R-Jr.,"Amherst, Mass.",Cushing Academy,
-43,JJ Blanchard,RHP,6' 4'',200,L/R,So.,"Framingham, Mass.",Framingham,
-44,Vance Bonior,C/RHP,6' 0'',195,R/R,So.,"Bethesda, Md.",Walter Johnson,
-,Will Briggs,C,5' 11'',195,R/R,R-So.,"Shakopee, Minn.",Academy of Holy Angels,Purdue
-,Kaden Coyne,OF,6' 1'',210,R/R,Fr.,"Dallas, Pa.",Dallas,
-,Henry Eichner,RHP,6' 2'',195,R/R,Fr.,"Bethesda, Md.",Bethesda-Chevy Chase,
-,Ethan Evans,RHP,6' 3'',195,R/R,Fr.,"Clayton, N.C.",Southside Christian,
-,Ty Fox,INF/OF,6' 2'',195,L/R,R-Fr.,"Rochester Hills, Mich.",Brother Rice,Ohio State
-,Kai Giro,RHP,6' 3'',215,R/R,Gr.,"Ridgefield, N.J.",St. Mary,Belmont Abbey
-,Dean Gobeil,OF,5' 11'',175,L/R,Fr.,"Somerset, Mass.",Tabor Academy,
-,Michael Goodman,RHP,6' 0'',195,R/R,R-Fr.,"New City, N.Y.",Clarkstown North,Delaware
-,Tommy Hennessey,INF,6' 0'',190,R/R,Fr.,"Charlton, Mass.",Shepherd Hill Regional,
-,Lorcan Lee,RHP,6' 3'',190,R/R,Fr.,"Newton, Mass.",Dexter Southfield,
 Skip Ad
-,Randen May,INF/OF,5' 7'',175,R/R,Fr.,"West Bridgewater, Mass.",Bishop Feehan,
-,Brayden Mercier,LHP,5' 10'',185,L/L,Fr.,"Oxford, Mass.",Saint John's HS,
-,Jack Niedringhaus,LHP,6' 0'',200,L/L,Sr.,"St. Louis, Mo.",MICDS,Xavier
-,Sam Perry,RHP,6' 0'',185,R/R,Fr.,"Westport, Mass.",Diman Regional Vocational Tech,
-,Jackson Richard,OF,5' 11'',195,L/R,Fr.,"Pembroke, Mass.",Boston College HS,
-,Jaylon Richardson,RHP,5' 10'',170,R/R,So.,"Boxford, Mass.",Pingree,
-,Gavin Sitarz,LHP,6' 0'',185,,Gr.,"St. Charles, Ill.",St. Charles East,Michigan State
-,Brandon Wingenroth,RHP,6' 1'',175,R/R,Gr.,"Manheim, Pa.",Lancaster Catholic,Penn State
+41,Justin Masteralexis,LHP,6' 1'',215,L/L,R-Jr.,"Amherst, Mass.",Cushing Academy,
+44,Lorcan Lee,RHP,6' 3'',190,R/R,Fr.,"Newton, Mass.",Dexter Southfield,
 ,Brandon Shileikis,Co-Head Coach,bshileikis@umass.edu,
 ,Max Weir,Co-Head Coach,mweir@umass.edu,
 ,Tim Gelzinis,Assistant Coach,tgelzinis@umass.edu,

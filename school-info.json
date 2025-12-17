@@ -1,18 +1,74 @@
 [
     {
-        "url": "https://pittsburghpanthers.com/sports/baseball/roster",
-        "name": "University of Pittsburgh"
+        "url": "https://baylorbears.com/sports/baseball/roster/2025",
+        "name": "Baylor University"
     },
     {
-        "url": "https://ohiostatebuckeyes.com/sports/baseball/roster",
-        "name": "Ohio State University"
+        "url": "https://bceagles.com/sports/baseball/roster",
+        "name": "Boston College"
+    },
+        {
+        "url": "https://bceagles.com/sports/baseball/roster/2025",
+        "name": "Boston College"
+    },
+    {
+        "url": "https://gopoly.com/sports/baseball/roster",
+        "name": "California Polytechnic State University"
+    },
+        {
+        "url": "https://gopoly.com/sports/baseball/roster/2025",
+        "name": "California Polytechnic State University"
+    },
+    {
+        "url": "https://cmuchippewas.com/sports/baseball/roster",
+        "name": "Central Michigan University"
+    },
+        {
+        "url": "https://cmuchippewas.com/sports/baseball/roster/2025",
+        "name": "Central Michigan University"
+    },
+    {
+        "url": "https://dartmouthsports.com/sports/baseball/roster",
+        "name": "Dartmouth College"
+    },
+        {
+        "url": "https://dartmouthsports.com/sports/baseball/roster/2025",
+        "name": "Dartmouth College"
+    },
+    {
+        "url": "https://goduke.com/sports/baseball/roster/2025",
+        "name": "Duke University"
     },
     {
         "url": "https://hailstate.com/sports/baseball/roster",
         "name": "Mississippi State University"
     },
+        {
+        "url": "https://hailstate.com/sports/baseball/roster/2025",
+        "name": "Mississippi State University"
+    },
+    {
+        "url": "https://okstate.com/sports/baseball/roster",
+        "name": "Oklahoma State University"
+    },
+        {
+        "url": "https://okstate.com/sports/baseball/roster/2025",
+        "name": "Oklahoma State University"
+    },
+    {
+        "url": "https://goprincetontigers.com/sports/baseball/roster",
+        "name": "Princeton University"
+    },
+        {
+        "url": "https://goprincetontigers.com/sports/baseball/roster/2025",
+        "name": "Princeton University"
+    },
     {
         "url": "https://riceowls.com/sports/baseball/roster",
+        "name": "Rice University"
+    },
+        {
+        "url": "https://riceowls.com/sports/baseball/roster/2025",
         "name": "Rice University"
     },
     {
@@ -20,71 +76,83 @@
         "name": "University of Florida"
     },
     {
-        "url": "https://goheels.com/sports/baseball/roster",
-        "name": "University of North Carolina"
-    },
-    {
-        "url": "https://gotigersgo.com/sports/baseball/roster",
-        "name": "University of Memphis"
-    },
-    {
-        "url": "https://tulanegreenwave.com/sports/baseball/roster",
-        "name": "Tulane University"
-    },
-    {
-        "url": "https://bceagles.com/sports/baseball/roster",
-        "name": "Boston College"
-    },
-    {
-        "url": "https://goduke.com/sports/baseball/roster/2025",
-        "name": "Duke University"
-    },
-    {
-        "url": "https://seminoles.com/sports/baseball/roster",
-        "name": "Florida State University"
-    },
-    {
         "url": "https://uconnhuskies.com/sports/baseball/roster",
         "name": "University of Connecticut"
     },
-    {
-        "url": "https://gohuskies.com/sports/baseball/roster",
-        "name": "University of Washington"
-    },
-    {
-        "url": "https://baylorbears.com/sports/baseball/roster/2025",
-        "name": "Baylor University"
+        {
+        "url": "https://uconnhuskies.com/sports/baseball/roster/2025",
+        "name": "University of Connecticut"
     },
     {
         "url": "https://uhcougars.com/sports/baseball/roster",
+        "name": "University of Houston"
+    },
+        {
+        "url": "https://uhcougars.com/sports/baseball/roster/2025",
         "name": "University of Houston"
     },
     {
         "url": "https://kuathletics.com/sports/baseball/roster",
         "name": "University of Kansas"
     },
-    {
-        "url": "https://okstate.com/sports/baseball/roster",
-        "name": "Oklahoma State University"
+        {
+        "url": "https://kuathletics.com/sports/baseball/roster/2025",
+        "name": "University of Kansas"
     },
     {
-        "url": "https://gopoly.com/sports/baseball/roster",
-        "name": "California Polytechnic State University"
+        "url": "https://gotigersgo.com/sports/baseball/roster",
+        "name": "University of Memphis"
     },
-    {
-        "url": "https://dartmouthsports.com/sports/baseball/roster",
-        "name": "Dartmouth College"
-    },
-    {
-        "url": "https://goprincetontigers.com/sports/baseball/roster",
-        "name": "Princeton University"
-    },
-    {
-        "url": "https://cmuchippewas.com/sports/baseball/roster",
-        "name": "Central Michigan University"
+        {
+        "url": "https://gotigersgo.com/sports/baseball/roster/2025",
+        "name": "University of Memphis"
     },
     {
         "url": "https://umassathletics.com/sports/baseball/roster",
         "name": "University of Massachusetts Amherst"
+    },
+        {
+        "url": "https://umassathletics.com/sports/baseball/roster/2025",
+        "name": "University of Massachusetts Amherst"
+    },
+    {
+        "url": "https://goheels.com/sports/baseball/roster",
+        "name": "University of North Carolina"
+    },
+        {
+        "url": "https://goheels.com/sports/baseball/roster/2025",
+        "name": "University of North Carolina"
+    },
+    {
+        "url": "https://pittsburghpanthers.com/sports/baseball/roster",
+        "name": "University of Pittsburgh"
+    },
+        {
+        "url": "https://pittsburghpanthers.com/sports/baseball/roster/2025",
+        "name": "University of Pittsburgh"
+    },
+    {
+        "url": "https://gohuskies.com/sports/baseball/roster",
+        "name": "University of Washington"
+    },
+        {
+        "url": "https://gohuskies.com/sports/baseball/roster/2025",
+        "name": "University of Washington"
+    },
+    {
+        "url": "https://seminoles.com/sports/baseball/roster",
+        "name": "Florida State University"
+    },
+    {
+        "url": "https://ohiostatebuckeyes.com/sports/baseball/roster",
+        "name": "Ohio State University"
+    },
+    {
+        "url": "https://tulanegreenwave.com/sports/baseball/roster",
+        "name": "Tulane University"
+    },
+    {
+        "url": "https://tulanegreenwave.com/sports/baseball/roster/2025",
+        "name": "Tulane University"
     }
 ]
