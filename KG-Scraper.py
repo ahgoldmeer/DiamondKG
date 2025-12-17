@@ -106,28 +106,6 @@ def write_to_neo4j(data, school, year):
                         if re.search(r"High School|College|University|Academy|State", values[value], re.IGNORECASE):  # Matches school-related keywords
                             high_school = values[value]
 
-                # # Extract hometown and high school
-                # if '/' in values[-1]:
-                #     hometown, high_school = map(str.strip, values[-1].split('/', 1))
-                # else:
-                #     hometown = values[-1]
-
-                # session.run(
-                #     """
-                #     MERGE (p:Player {number: $num, name: $name, team: $team})
-                #     SET p.bat_throw = $bat_throw, p.year = $year, p.height = $height, p.weight = $weight, p.position = $position,
-                #         p.hometown = $hometown, p.high_school = $high_school
-                #     """,
-                #     team=team,
-                #     num=values[0] if len(values) > 0 else None,
-                #     name=values[1] if len(values) > 1 else None,
-                #     bat_throw=bat_throw,
-                #     year=player_year,
-                #     height=height,
-                #     weight=weight,
-                #     position=position,
-                #     hometown=hometown,
-                #     high_school=high_school
                 # )
                 session.run(
                     """
@@ -138,16 +116,6 @@ def write_to_neo4j(data, school, year):
                     hometown=hometown,
                     high_school=high_school
                 )
-                # session.run( # Create relationship between player and team
-                #     """
-                #     MATCH (p:Player {number: $num, name: $name, team: $team})
-                #     MATCH (t:Team {name: $team})
-                #     MERGE (p)-[:PLAYS_FOR]->(t)
-                #     """,
-                #     team=team,
-                #     num=values[0] if len(values) > 0 else None,
-                #     name=values[1] if len(values) > 1 else None
-                # )
                 session.run(
                     """
                     MATCH (p:Player {name: $name})
@@ -174,17 +142,6 @@ def write_to_neo4j(data, school, year):
                     bat_throw=bat_throw,
                     major=major
                 )
-                # session.run( # Create relationship between player and school
-                #     """
-                #     MATCH (p:Player {number: $num, name: $name, team: $team})
-                #     MATCH (s:School {name: $school})
-                #     MERGE (p)-[:ATTENDS]->(s)
-                #     """,
-                #     team=team,
-                #     num=values[0] if len(values) > 0 else None,
-                #     name=values[1] if len(values) > 1 else None,
-                #     school=school
-                # )
                 session.run(
                     """
                     MATCH (p:Player {name: $name})
@@ -199,33 +156,16 @@ def write_to_neo4j(data, school, year):
                 title=values[2] if len(values) > 1 else None,
                 email=values[3] if len(values) > 2 else None,
                 phone_number=values[4] if len(values) > 3 else None
-                # session.run(
-                #     "MERGE (:Coach {team: $team, name: $name, title: $title, email: $email, phone_number: $phone_number})",
-                #     team=team,
-                #     name=values[1] if len(values) > 0 else None,
-                #     title=values[2] if len(values) > 1 else None,
-                #     email=values[3] if len(values) > 2 else None,
-                #     phone_number=values[4] if len(values) > 3 else None
-                # )
                 session.run(
                     """
                     MERGE (c:Coach {name: $name})
-                    ON CREATE SET c.email = $email, c.phone_number = $phone
+                    ON CREATE SET c.email = $email, c.phone_number = $phone, c.title = $title
                     """, 
                     name=name, 
                     email=email,
-                    phone=phone_number
+                    phone=phone_number,
+                    title = title
                 )
-                # session.run( # Create relationship between coach and school
-                #     """
-                #     MATCH (c:Coach {team: $team, name: $name})
-                #     MATCH (s:School {name: $school})
-                #     MERGE (c)-[:COACHES_AT]->(s)
-                #     """,
-                #     team=team,
-                #     name=values[1] if len(values) > 0 else None,  # Correctly pass the name parameter
-                #     school=school
-                # )
                 session.run(
                     """
                     MATCH (c:Coach {name: $name})
@@ -234,15 +174,6 @@ def write_to_neo4j(data, school, year):
                     """, 
                     name=name, 
                     team=team)
-                # session.run(
-                #     """
-                #     MATCH (c:Coach {team: $team, name: $name})
-                #     MATCH (t:Team {name: $team})
-                #     MERGE (c)-[:COACHES_FOR]->(t)
-                #     """,
-                #     team=team,
-                #     name=values[1] if len(values) > 0 else None
-                # )
                 session.run(
                     """
                     MATCH (c:Coach {name: $name})
